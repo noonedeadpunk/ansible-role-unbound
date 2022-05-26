@@ -21,13 +21,16 @@
   roles:
     - role: "{{ playbook_dir | dirname | dirname | basename }}"
   post_tasks:
+    - name: Ensure pgrep is present
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ pgrep_package_name[ansible_facts['os_family'] | lower] }}"
+        - bind9-host
     - name: Check unbound configuration
       command: unbound-checkconf
       changed_when: false
-    - name: Ensure pgrep is present
-      package:
-        name: "{{ pgrep_package_name[ansible_facts['os_family'] | lower] }}"
-        state: present
     - name: Check unbound is running
       command: pgrep -a unbound
       register: unbound_proc
