@@ -24,6 +24,10 @@
     - name: Check unbound configuration
       command: unbound-checkconf
       changed_when: false
+    - name: Ensure pgrep is present
+      package:
+        name: "{{ pgrep_package_name[ansible_facts['os_family'] | lower] }}"
+        state: present
     - name: Check unbound is running
       command: pgrep -a unbound
       register: unbound_proc
@@ -56,3 +60,6 @@
     service_region: nova
     unbound_listen_interface: 127.0.0.1
     unbound_ipv6: false
+    pgrep_package_name:
+      redhat: procps-ng
+      debian: procps
