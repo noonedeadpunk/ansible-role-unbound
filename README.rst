@@ -3,8 +3,7 @@ Unbound Caching DNS Resolver Ansible Role
 
 Ansible role to install and configure Unbound
 
-.. image:: https://travis-ci.org/logan2211/ansible-unbound.svg?branch=master
-    :target: https://travis-ci.org/logan2211/ansible-unbound
+.. image:: https://github.com/noonedeadpunk/ansible-unbound/actions/workflows/main.yml/badge.svg?branch=master
 
 Default Variables
 =================
