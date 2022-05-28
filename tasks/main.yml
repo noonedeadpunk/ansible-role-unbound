@@ -24,5 +24,5 @@
   tags:
     - always
 
-- include: unbound_install.yml
-- include: unbound_post_install.yml
+- import_tasks: unbound_install.yml
+- import_tasks: unbound_post_install.yml

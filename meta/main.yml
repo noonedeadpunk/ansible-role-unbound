@@ -15,6 +15,7 @@
 
 galaxy_info:
   author: logan
+  role_name: unbound
   description: Deployment of unbound caching DNS resolver
   license: Apache2
   min_ansible_version: 2.4
