@@ -22,10 +22,11 @@ unbound_upstream_resolvers:
   - 8.8.4.4
 unbound_localzone_mode: static
 unbound_root_zone: openstack
-unbound_regional_zone: "{{ service_region }}.{{ unbound_root_zone }}"
-unbound_listen_interface: 0.0.0.0
+unbound_regional_zone: "{{ service_region | default('RegionOne') }}.{{ unbound_root_zone }}"
+unbound_listen_interface: "{{ openstack_service_bind_address | default('0.0.0.0') }}"
+unbound_allow_netmask: "{{ container_networks['container_address']['netmask'] | default('0.0.0.0') }}"
 unbound_access_control:
-  - cidr: 0.0.0.0/0
+  - cidr: "{{ (unbound_listen_interface ~ '/' ~ unbound_allow_netmask) | ipaddr('network/prefix') }}"
     action: allow
 
 # bind ipv6 socket
