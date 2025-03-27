@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Install unbound packages
-  package:
+  ansible.builtin.package:
     name: "{{ unbound_packages }}"
     state: "{{ unbound_package_state }}"
     update_cache: "{{ (ansible_facts['pkg_mgr'] in ['apt', 'zypper']) | ternary('yes', omit) }}"
@@ -25,7 +25,7 @@
   delay: 2
 
 - name: Configure unbound service defaults
-  template:
+  ansible.builtin.template:
     src: unbound-service-defaults.j2
     dest: /etc/default/unbound
     owner: "root"
