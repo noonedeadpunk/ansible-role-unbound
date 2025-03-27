@@ -2,9 +2,9 @@
 {% set record_suffix = '.' ~ unbound_regional_zone %}
 {% macro local_data_record(host, address, type='A') -%}
 {% set _valid = true %}
-{% if type == 'A' and not address | ipv4 %}
+{% if type == 'A' and not address | ansible.utils.ipv4 %}
 {%   set _valid = false %}
-{% elif type == 'AAAA' and not address | ipv6 %}
+{% elif type == 'AAAA' and not address | ansible.utils.ipv6 %}
 {%   set _valid = false %}
 {% endif %}
 {% if _valid | bool %}

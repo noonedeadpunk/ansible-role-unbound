@@ -26,7 +26,7 @@ unbound_regional_zone: "{{ service_region | default('RegionOne') }}.{{ unbound_r
 unbound_listen_interface: "{{ openstack_service_bind_address | default('0.0.0.0') }}"
 unbound_allow_netmask: "{{ container_networks['container_address']['netmask'] | default('0.0.0.0') }}"
 unbound_access_control:
-  - cidr: "{{ (unbound_listen_interface ~ '/' ~ unbound_allow_netmask) | ipaddr('network/prefix') }}"
+  - cidr: "{{ (unbound_listen_interface ~ '/' ~ unbound_allow_netmask) | ansible.utils.ipaddr('network/prefix') }}"
     action: allow
 
 # bind ipv6 socket
