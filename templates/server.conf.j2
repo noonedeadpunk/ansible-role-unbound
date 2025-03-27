@@ -12,6 +12,9 @@ server:
 {% if unbound_pid_file is defined %}
 	pidfile: "{{ unbound_pid_file }}"
 {% endif %}
+{% if unbound_disable_chroot is defined and unbound_disable_chroot %}
+    chroot: ""
+{% endif %}
 
 forward-zone:
 	name: "."
