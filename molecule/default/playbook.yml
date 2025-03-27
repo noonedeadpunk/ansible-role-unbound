@@ -38,11 +38,11 @@
     - name: Install host lookup package (apt)
       package:
         name: host
-      when: ansible_pkg_mgr == 'apt'
+      when: ansible_facts['pkg_mgr'] == 'apt'
     - name: Install host lookup package (yum/zypper)
       package:
         name: bind-utils
-      when: ansible_pkg_mgr in ['yum', 'zypper']
+      when: ansible_facts['pkg_mgr'] in ['yum', 'zypper']
     - name: Test unbound resolution
       command: host google.com 127.0.0.1
       register: unbound_lookup
@@ -63,6 +63,7 @@
     service_region: nova
     unbound_listen_interface: 127.0.0.1
     unbound_ipv6: false
+    unbound_disable_chroot: "{{ (ansible_facts['os_family'] | lower == 'redhat') | ternary(true, false) }}"
     pgrep_package_name:
       redhat: procps-ng
       debian: procps

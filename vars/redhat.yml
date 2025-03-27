@@ -15,5 +15,6 @@
 
 unbound_packages:
   - unbound
+  - policycoreutils
 
 unbound_conf_dir: /etc/unbound/conf.d
