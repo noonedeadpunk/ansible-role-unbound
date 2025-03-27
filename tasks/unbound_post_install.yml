@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Drop unbound main configuration
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "root"
@@ -28,10 +28,10 @@
     - unbound-config
 
 - name: Drop unbound local configurations
-  template:
+  ansible.builtin.template:
     src: "{{ item.template }}.j2"
     # yamllint disable-line rule:line-length
-    dest: "{{ unbound_conf_dir }}/{{ (item.priority|default('50')|string).rjust(3, '0') }}-{{ item.template | basename }}"
+    dest: "{{ unbound_conf_dir }}/{{ (item.priority | default('50') | string).rjust(3, '0') }}-{{ item.template | basename }}"
     owner: root
     group: root
     mode: '0644'
@@ -43,9 +43,9 @@
     - unbound-config
 
 - name: Drop unbound extra records
-  template:
+  ansible.builtin.template:
     src: "extra_records.conf.j2"
-    dest: "{{ unbound_conf_dir }}/{{ (item.priority|default('50')|string).rjust(3, '0') }}-{{ item.name }}.conf"
+    dest: "{{ unbound_conf_dir }}/{{ (item.priority | default('50') | string).rjust(3, '0') }}-{{ item.name }}.conf"
     owner: root
     group: root
     mode: '0644'
@@ -57,6 +57,6 @@
     - unbound-config
 
 - name: Start unbound and add to boot services
-  service:
+  ansible.builtin.service:
     name: "unbound"
     enabled: "yes"
