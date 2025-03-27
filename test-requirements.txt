@@ -10,10 +10,10 @@ oslosphinx!=3.4.0,>=2.5.0 # Apache-2.0
 doc8 # Apache-2.0
 reno>=1.8.0 # Apache2
 
-docker==5.0.3
-molecule==3.6.1
-molecule-docker==1.1.0
-ansible-lint==5.0.10
+docker>=7.0.0
+molecule==24.12.0
+molecule-plugins[docker]==23.6.0
+ansible-lint==24.12.2
 rich>=9.5.1,<11.0.0
 
 # required for openstack template ipaddress validation
