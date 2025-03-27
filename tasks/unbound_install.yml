@@ -17,8 +17,8 @@
   package:
     name: "{{ unbound_packages }}"
     state: "{{ unbound_package_state }}"
-    update_cache: "{{ (ansible_pkg_mgr in ['apt', 'zypper']) | ternary('yes', omit) }}"
-    cache_valid_time: "{{ (ansible_pkg_mgr == 'apt') | ternary(cache_timeout, omit) }}"
+    update_cache: "{{ (ansible_facts['pkg_mgr'] in ['apt', 'zypper']) | ternary('yes', omit) }}"
+    cache_valid_time: "{{ (ansible_facts['pkg_mgr'] == 'apt') | ternary(cache_timeout, omit) }}"
   register: install_packages
   until: install_packages is success
   retries: 5
@@ -32,6 +32,6 @@
     group: "root"
     mode: "0644"
   when:
-    - ansible_pkg_mgr == 'apt'
+    - ansible_facts['pkg_mgr'] == 'apt'
   notify:
     - Restart unbound
